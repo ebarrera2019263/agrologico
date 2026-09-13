@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------
+   Agrológico — sistema de diseño "Agua y suelo"
+   Verde milpa + azul de riego + amarillo maíz sobre fondo mineral.
+   --------------------------------------------------------------- */
+@theme {
+  --color-tinta: #12261b;
+  --color-tinta-suave: #3c5548;
+  --color-milpa: #1f5d3a;
+  --color-milpa-claro: #2d8451;
+  --color-agua: #1b9aaa;
+  --color-agua-profunda: #0d6b78;
+  --color-maiz: #e3a81c;
+  --color-tierra: #8c5a2b;
+  --color-mineral: #e9eee7;
+  --color-mineral-claro: #f4f7f2;
+  --color-linea: #cbd7c8;
+
+  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --text-desplante: 4.5rem;
+  --text-desplante--line-height: 0.94;
+  --text-desplante--letter-spacing: -0.035em;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* deja aire bajo la barra fija al saltar a una sección */
+    scroll-padding-top: 5.5rem;
+  }
+
+  body {
+    background-color: var(--color-mineral);
+    color: var(--color-tinta);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.025em;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-agua);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--color-maiz);
+    color: var(--color-tinta);
+  }
+}
+
+@layer components {
+  /* El surco: regla delgada que separa secciones, con el ritmo de un
+     marco de plantación en lugar de una línea continua. */
+  .surco {
+    height: 1px;
+    background-image: repeating-linear-gradient(
+      to right,
+      var(--color-linea) 0 18px,
+      transparent 18px 26px
+    );
+  }
+
+  /* Trama de parcela: retícula de campo vista desde arriba. */
+  .parcela {
+    background-image: linear-gradient(
+        to right,
+        color-mix(in srgb, var(--color-milpa) 9%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--color-milpa) 9%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: 44px 44px;
+  }
+}
+
+/* Movimiento: una sola secuencia orquestada en el hero.
+   Se apaga por completo si el sistema pide menos movimiento. */
+@keyframes goteo {
+  0% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  18% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+}
+
+.gota {
+  animation: goteo 3.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .gota {
+    animation: none;
+    opacity: 0.9;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
