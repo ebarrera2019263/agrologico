@@ -1,5 +1,7 @@
 # Agrológico — sitio informativo
 
+**En línea:** https://ebarrera2019263.github.io/agrologico/
+
 Maqueta de la página de Agrológico: riego, nutrición vegetal, semilla,
 protección de cultivos, equipo y asesoría técnica en finca.
 
@@ -103,5 +105,27 @@ src/
 
 ## Publicarlo
 
-`npm run build` deja todo en `dist/`. Esa carpeta se sube tal cual a
-Netlify, Vercel, Cloudflare Pages o cualquier hosting estático.
+El sitio ya está publicado en GitHub Pages. **Cada push a `main` lo
+actualiza solo**: el flujo de `.github/workflows/deploy.yml` compila y
+despliega en menos de un minuto.
+
+```bash
+git add -A
+git commit -m "Actualiza los datos de contacto"
+git push
+```
+
+Para ver cómo va el despliegue: `gh run watch`, o la pestaña Actions del
+repositorio.
+
+Si los cambios no se ven de inmediato, es caché del navegador: recargá con
+Cmd+Shift+R.
+
+### Si algún día se mueve a un dominio propio
+
+1. En `vite.config.ts`, cambiá `base: '/agrologico/'` por `base: '/'`.
+2. Actualizá la URL de `og:image` en `index.html`.
+3. Configurá el dominio en Settings → Pages del repositorio.
+
+`npm run build` también deja todo en `dist/` si se prefiere subirlo a mano
+a Netlify, Vercel o Cloudflare Pages.
