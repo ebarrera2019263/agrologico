@@ -124,9 +124,9 @@ export function Hero() {
             </div>
           </div>
 
-          <Acotacion clase="left-0 top-[26%] -translate-x-1/3" dato="1.6 L/h" etiqueta="caudal por emisor" />
+          <Acotacion clase="left-3 top-[26%]" dato="1.6 L/h" etiqueta="caudal por emisor" />
           <Acotacion
-            clase="right-0 top-[62%] translate-x-1/3"
+            clase="right-3 top-[62%]"
             dato="0.30 m"
             etiqueta="entre emisores"
             lado="derecha"
