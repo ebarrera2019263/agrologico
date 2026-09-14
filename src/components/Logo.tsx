@@ -11,7 +11,7 @@ import logoClaro from "../assets/logo-blanco.svg";
    prefijo correcto al publicar en un subdirectorio. */
 
 export function Logo({
-  className = "h-10",
+  className = "h-10 w-auto",
   variante = "claro",
 }: {
   className?: string;
@@ -23,7 +23,7 @@ export function Logo({
       alt="Agrologico, soluciones y tecnologías"
       width={625}
       height={165}
-      className={`${className} w-auto`}
+      className={className}
     />
   );
 }
