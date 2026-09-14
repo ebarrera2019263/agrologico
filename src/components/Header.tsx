@@ -50,9 +50,9 @@ export function Header() {
           : "bg-transparent text-mineral"
       }`}
     >
-      <div className="mx-auto flex h-24 max-w-[78rem] items-center justify-between gap-6 px-5 sm:px-8">
+      <div className="mx-auto flex h-24 max-w-[78rem] items-center justify-between gap-6 px-5 sm:px-8 xl:h-28">
         <a href="#inicio" className="shrink-0" aria-label="Agrológico, ir al inicio">
-          <Logo className="h-12 sm:h-14" />
+          <Logo className="h-14 sm:h-16 xl:h-[4.5rem]" />
         </a>
 
         {/* Navegación de escritorio */}
@@ -63,13 +63,13 @@ export function Header() {
                 <a
                   href={`#${id}`}
                   aria-current={activa === id ? "true" : undefined}
-                  className={`relative block px-4 py-2 text-[0.95rem] font-medium transition-colors ${
-                    activa === id ? "text-maiz" : "text-mineral/80 hover:text-mineral"
+                  className={`relative block px-3 py-2 text-[0.82rem] transition-colors ${
+                    activa === id ? "text-maiz" : "text-mineral/65 hover:text-mineral"
                   }`}
                 >
                   {nombre}
                   <span
-                    className={`absolute inset-x-4 bottom-0.5 h-px bg-maiz transition-opacity ${
+                    className={`absolute inset-x-3 bottom-0.5 h-px bg-maiz transition-opacity ${
                       activa === id ? "opacity-100" : "opacity-0"
                     }`}
                   />
@@ -84,9 +84,9 @@ export function Header() {
             href={enlaceWhatsApp()}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-milpa-claro px-5 py-2.5 text-[0.95rem] font-semibold text-white transition-colors hover:bg-milpa"
+            className="inline-flex items-center gap-2 rounded-full bg-milpa-claro px-4 py-2 text-[0.82rem] font-semibold text-white transition-colors hover:bg-milpa"
           >
-            <IconoWhatsApp className="h-4 w-4" />
+            <IconoWhatsApp className="h-3.5 w-3.5" />
             Escribinos
           </a>
         </div>
