@@ -5,19 +5,21 @@
    --------------------------------------------------------------- */
 
 export const empresa = {
-  nombre: "Agrológico",
-  descriptor: "Insumos y riego para el campo",
+  nombre: "Agrologico",
+  descriptor: "Soluciones y tecnologías",
 
   /* Número de WhatsApp en formato internacional, solo dígitos.
-     502 = Guatemala. Cambialo por el número real del negocio. */
+     502 = Guatemala. PENDIENTE: confirmar el número real de WhatsApp;
+     el de abajo todavía es de ejemplo. */
   whatsapp: "50255555555",
   whatsappVisible: "+502 5555 5555",
 
-  telefono: "+502 2222 3333",
+  telefono: "6632-4158",
+  telefonoEnlace: "+50266324158",
   correo: "ventas@agrologico.com",
 
-  direccion: "Km 18.5 Carretera al Atlántico, Bodega 4",
-  ciudad: "Ciudad de Guatemala, Guatemala",
+  direccion: "Km 27 Carretera al Salvador, CAES Industrial, Sección C, Bodega 14",
+  ciudad: "Guatemala",
 
   horario: [
     { dias: "Lunes a viernes", horas: "7:00 – 17:00" },
@@ -30,8 +32,15 @@ export const empresa = {
     instagram: "https://instagram.com/",
   },
 
-  /* Coordenadas para el mapa embebido (Google Maps). */
-  mapa: "https://www.google.com/maps?q=14.6349,-90.5069&z=14&output=embed",
+  /* Mapa embebido de Google Maps. Se busca el parque industrial por
+     nombre: así el pin cae sobre el lugar real y no sobre coordenadas
+     aproximadas. Para afinarlo al número de bodega, lo ideal es pegar
+     aquí el iframe que da Google Maps en «Compartir → Insertar un mapa»
+     desde la ficha de Google Business de la empresa. */
+  mapa:
+    "https://maps.google.com/maps?q=" +
+    encodeURIComponent("CAES Parque Industrial, Km 27 Carretera a El Salvador, Guatemala") +
+    "&z=14&output=embed",
 } as const;
 
 export const mensajeWhatsApp =

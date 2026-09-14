@@ -29,11 +29,25 @@ Lo primero que hay que reemplazar, porque ahora son datos de ejemplo:
 
 | Dato | Dónde | Formato |
 |---|---|---|
-| WhatsApp | `empresa.whatsapp` | solo dígitos con código de país: `50255555555` |
-| WhatsApp visible | `empresa.whatsappVisible` | como se muestra: `+502 5555 5555` |
-| Teléfono, correo, dirección | `empresa.*` | texto |
-| Ubicación del mapa | `empresa.mapa` | URL de Google Maps con `&output=embed` |
-| Redes sociales | `empresa.redes` | URLs |
+| **WhatsApp** | `empresa.whatsapp` | **PENDIENTE** — sigue siendo de ejemplo. Solo dígitos con código de país: `502########` |
+| WhatsApp visible | `empresa.whatsappVisible` | como se muestra: `+502 ####-####` |
+| Correo | `empresa.correo` | `ventas@agrologico.com` es supuesto, confirmar |
+| Redes sociales | `empresa.redes` | URLs, hoy apuntan a la raíz de cada red |
+
+Ya están puestos y confirmados el teléfono (6632-4158), la dirección (Km 27
+Carretera al Salvador, CAES Industrial, Sección C, Bodega 14) y el mapa.
+
+## El logo
+
+Vectorizado desde `LOGO AGROLOGICO 2025 AF.pdf`, en tres archivos dentro de
+`src/assets/`:
+
+- `logo.svg` — a color, para fondos claros
+- `logo-blanco.svg` — el logotipo en blanco hueso, para fondos oscuros (es
+  el que usan la barra y el pie); la marca conserva sus colores
+- `isotipo.svg` — solo la «a» con las dos hojas
+
+El favicon (`public/favicon.svg`) es la marca sobre el verde de la empresa.
 
 ## Fotografías
 
@@ -86,9 +100,18 @@ src/
 
 ## Diseño
 
-- **Colores** (definidos en `src/index.css`): verde milpa `#1F5D3A`, azul de
-  riego `#1B9AAA`, amarillo maíz `#E3A81C`, tierra `#8C5A2B`, fondo mineral
-  `#E9EEE7`, tinta `#12261B`.
+- **Colores**: tomados del logo oficial. Los cuatro de marca son exactos:
+
+  | Color | Hex | Dónde está en el logo |
+  |---|---|---|
+  | Verde petróleo | `#005949` | Logotipo «Agrologico» y bajada |
+  | Verde vivo | `#009A46` | La «a» |
+  | Verde hoja | `#6CBE45` | Hoja derecha |
+  | Ámbar | `#FBAD18` | Hoja izquierda |
+
+  Los neutros (`#00382E` para fondos oscuros, `#F1F5F3` para fondo claro)
+  se derivaron del verde petróleo para que todo lea como una familia.
+  Están definidos en `src/index.css`.
 - **Tipografías**: Archivo para titulares, IBM Plex Sans para texto.
 - **Movimiento**: una sola animación, las gotas del hero. Se apaga sola si el
   sistema operativo pide menos movimiento.

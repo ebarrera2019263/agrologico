@@ -5,17 +5,21 @@
    Verde milpa + azul de riego + amarillo maíz sobre fondo mineral.
    --------------------------------------------------------------- */
 @theme {
-  --color-tinta: #12261b;
-  --color-tinta-suave: #3c5548;
-  --color-milpa: #1f5d3a;
-  --color-milpa-claro: #2d8451;
-  --color-agua: #1b9aaa;
-  --color-agua-profunda: #0d6b78;
-  --color-maiz: #e3a81c;
-  --color-tierra: #8c5a2b;
-  --color-mineral: #e9eee7;
-  --color-mineral-claro: #f4f7f2;
-  --color-linea: #cbd7c8;
+  /* Paleta tomada del logo oficial (LOGO AGROLOGICO 2025 AF.pdf).
+     Los cuatro colores de marca son exactos; el resto son neutros
+     derivados del verde petróleo para que todo lea como una familia. */
+
+  --color-tinta: #00382e;        /* verde petróleo profundo: fondos y texto */
+  --color-tinta-suave: #4a6b63;  /* texto secundario */
+  --color-milpa: #005949;        /* MARCA — verde del logotipo */
+  --color-milpa-claro: #009a46;  /* MARCA — verde de la «a» */
+  --color-agua: #6cbe45;         /* MARCA — verde de la hoja */
+  --color-agua-profunda: #006b55; /* enlaces sobre fondo claro */
+  --color-maiz: #fbad18;         /* MARCA — ámbar de la hoja */
+  --color-tierra: #b0431b;       /* solo errores de formulario */
+  --color-mineral: #f1f5f3;      /* fondo claro */
+  --color-mineral-claro: #f8fbf9;
+  --color-linea: #cbdcd6;
 
   --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
@@ -47,8 +51,9 @@
   }
 
   :focus-visible {
-    outline: 3px solid var(--color-agua);
-    outline-offset: 3px;
+    outline: 3px solid var(--color-maiz);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px var(--color-tinta);
     border-radius: 2px;
   }
 

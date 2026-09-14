@@ -22,7 +22,7 @@ export function Servicios() {
           {servicios.map((servicio) => {
             const Icono = iconos[servicio.icono];
             return (
-              <li key={servicio.id} className="group bg-tinta p-7 transition-colors hover:bg-[#17301f] sm:p-9">
+              <li key={servicio.id} className="group bg-tinta p-7 transition-colors hover:bg-[#004c3d] sm:p-9">
                 <Icono className="h-9 w-9 text-agua" />
 
                 <h3 className="mt-6 font-display text-xl font-bold leading-snug">
@@ -52,7 +52,7 @@ export function Servicios() {
           </p>
           <a
             href="#contacto"
-            className="inline-flex items-center justify-center rounded-full bg-maiz px-7 py-3.5 font-semibold text-tinta transition-colors hover:bg-[#f2ba33]"
+            className="inline-flex items-center justify-center rounded-full bg-maiz px-7 py-3.5 font-semibold text-tinta transition-colors hover:bg-[#ffc04a]"
           >
             Consultar por un producto
           </a>

@@ -262,7 +262,7 @@ export function Contacto() {
               </Dato>
 
               <Dato titulo="Teléfono">
-                <a href={`tel:${empresa.telefono.replace(/\s/g, "")}`} className="hover:text-milpa">
+                <a href={`tel:${empresa.telefonoEnlace}`} className="hover:text-milpa">
                   {empresa.telefono}
                 </a>
                 <br />

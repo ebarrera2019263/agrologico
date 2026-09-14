@@ -52,7 +52,7 @@ export function Header() {
     >
       <div className="mx-auto flex h-20 max-w-[78rem] items-center justify-between gap-6 px-5 sm:px-8">
         <a href="#inicio" className="shrink-0" aria-label="Agrológico, ir al inicio">
-          <Logo className="h-8" />
+          <Logo className="h-9" />
         </a>
 
         {/* Navegación de escritorio */}

@@ -24,7 +24,7 @@ export function BotonWhatsApp() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Escribir a Agrológico por WhatsApp"
-      className={`fixed bottom-5 right-5 z-40 inline-flex items-center gap-3 rounded-full bg-[#25D366] py-3.5 pl-4 pr-5 font-semibold text-[#07301a] shadow-[0_8px_24px_rgba(18,38,27,0.28)] transition-all duration-300 hover:bg-[#1fb757] sm:bottom-8 sm:right-8 ${
+      className={`fixed bottom-5 right-5 z-40 inline-flex items-center gap-3 rounded-full bg-[#25D366] py-3.5 pl-4 pr-5 font-semibold text-[#00382e] shadow-[0_8px_24px_rgba(0,56,46,0.3)] transition-all duration-300 hover:bg-[#1fb757] sm:bottom-8 sm:right-8 ${
         visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
       }`}
     >
