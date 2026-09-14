@@ -1,6 +1,5 @@
 import { enlaceWhatsApp } from "../data/site";
 import { IconoWhatsApp } from "./Iconos";
-import { Logo } from "./Logo";
 
 /* Anotación de plano: una cifra técnica colgada de una línea guía,
    como las acotaciones de un diseño de riego. */
@@ -41,11 +40,12 @@ export function Hero() {
             Cobertura técnica en seis departamentos
           </p>
 
-          {/* El logo hace de titular. Va dentro del h1 para que su texto
-              alternativo siga funcionando como encabezado de la página
-              ante buscadores y lectores de pantalla. */}
-          <h1 className="mt-7">
-            <Logo className="h-auto w-full max-w-[26rem]" />
+          <h1 className="mt-6 font-display text-[clamp(2.75rem,7.5vw,4.5rem)] font-extrabold leading-[0.95] tracking-[-0.035em]">
+            El agua llega
+            <br />
+            hasta donde
+            <br />
+            usted siembra.
           </h1>
 
           <p className="mt-7 max-w-[46ch] text-lg leading-relaxed text-mineral/80">

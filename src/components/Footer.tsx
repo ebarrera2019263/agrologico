@@ -7,7 +7,7 @@ export function Footer() {
       <div className="mx-auto max-w-[78rem] px-5 py-16 sm:px-8">
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <Logo className="h-12 w-auto" />
+            <Logo className="h-16" />
             <p className="mt-5 max-w-[34ch] leading-relaxed text-mineral/65">
               {empresa.descriptor}. Riego, nutrición, semilla y asesoría técnica
               para productores de la región.
