@@ -33,7 +33,7 @@
   html {
     scroll-behavior: smooth;
     /* deja aire bajo la barra fija al saltar a una sección */
-    scroll-padding-top: 5.5rem;
+    scroll-padding-top: 6.5rem;
   }
 
   body {

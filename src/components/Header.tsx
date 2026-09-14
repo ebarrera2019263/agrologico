@@ -50,9 +50,9 @@ export function Header() {
           : "bg-transparent text-mineral"
       }`}
     >
-      <div className="mx-auto flex h-20 max-w-[78rem] items-center justify-between gap-6 px-5 sm:px-8">
+      <div className="mx-auto flex h-24 max-w-[78rem] items-center justify-between gap-6 px-5 sm:px-8">
         <a href="#inicio" className="shrink-0" aria-label="Agrológico, ir al inicio">
-          <Logo className="h-9" />
+          <Logo className="h-12 sm:h-14" />
         </a>
 
         {/* Navegación de escritorio */}
