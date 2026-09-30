@@ -12,7 +12,7 @@ export function Nosotros() {
           </h2>
           <div className="surco mt-8" />
 
-          <figure className="mt-8 overflow-hidden">
+          <figure className="foto-nivel mt-8 overflow-hidden">
             <img
               src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=1000&q=70&auto=format&fit=crop"
               alt="Cuadrilla cosechando hortaliza en el campo al amanecer"
@@ -25,7 +25,7 @@ export function Nosotros() {
         </div>
 
         <div className="lg:pt-4">
-          <p className="text-xl leading-relaxed text-tinta">
+          <p className="nosotros-lema text-xl leading-relaxed text-tinta">
             Agrológico nació en 2008 como una bodega de insumos a la orilla de la
             carretera. Hoy tenemos taller, vivero y un equipo de agrónomos que pasa
             más tiempo en las fincas que en la oficina.
@@ -46,11 +46,15 @@ export function Nosotros() {
 
           {/* Cifras: dato arriba, contexto abajo, sin tarjetas */}
           <dl className="mt-12 grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4 lg:gap-x-6">
-            {cifras.map(({ valor, unidad, nota }) => (
-              <div key={nota} className="border-t-2 border-milpa pt-4">
+            {cifras.map(({ valor, unidad, nota }, i) => (
+              <div
+                key={nota}
+                className="cifra relative pt-4 before:absolute before:inset-x-0 before:top-0 before:h-0.5 before:bg-milpa"
+                style={{ "--i": i } as React.CSSProperties}
+              >
                 <dt className="sr-only">{nota}</dt>
                 <dd>
-                  <span className="block font-display text-4xl font-extrabold leading-none tracking-[-0.04em] text-milpa">
+                  <span className="cifra-valor block font-display text-4xl font-extrabold leading-none tracking-[-0.04em] text-milpa">
                     {valor}
                   </span>
                   <span className="mt-1.5 block font-display text-sm font-semibold text-tinta">

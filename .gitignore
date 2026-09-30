@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Artefactos de herramientas locales (capturas de pruebas y caché de diseño)
+.playwright-mcp/
+.impeccable/

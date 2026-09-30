@@ -25,6 +25,20 @@ export function IconoRiego({ className }: Props) {
   );
 }
 
+export function IconoProtegida({ className }: Props) {
+  return (
+    <svg viewBox="0 0 32 32" className={className} aria-hidden="true">
+      <path d="M4 27V15a12 9 0 0 1 24 0v12" {...trazo} />
+      <path d="M16 6v21" {...trazo} />
+      <path d="M4 17h24" {...trazo} />
+      <path d="M10 27v-3.5M22 27v-3.5" {...trazo} />
+      <path d="M10 23.5c-1.8 0-2.8-1-2.8-2.8 1.8 0 2.8 1 2.8 2.8Z" {...trazo} />
+      <path d="M22 23.5c1.8 0 2.8-1 2.8-2.8-1.8 0-2.8 1-2.8 2.8Z" {...trazo} />
+      <path d="M2 27h28" {...trazo} />
+    </svg>
+  );
+}
+
 export function IconoNutricion({ className }: Props) {
   return (
     <svg viewBox="0 0 32 32" className={className} aria-hidden="true">
@@ -94,6 +108,7 @@ export function IconoWhatsApp({ className }: Props) {
 
 export const iconos = {
   riego: IconoRiego,
+  protegida: IconoProtegida,
   nutricion: IconoNutricion,
   semilla: IconoSemilla,
   proteccion: IconoProteccion,

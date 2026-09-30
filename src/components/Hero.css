@@ -1,0 +1,332 @@
+/* ---------------------------------------------------------------
+   Hero con escena de campo (Hero.tsx).
+
+   Sin .hc--animada (sin JavaScript, movimiento reducido o pantalla muy
+   baja) el hero es texto sobre la parcela en su estado final. Con
+   .hc--animada ocupa la pantalla, se fija y aparece la capa del relato:
+   leyendas, panel del sensor y mensaje final.
+
+   Colores y tipografía vienen de @theme en src/index.css.
+   --------------------------------------------------------------- */
+
+.hc {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  background-color: #002b24;
+}
+
+/* Mientras carga la escena 3D (o si no hay WebGL) queda un fondo de
+   atardecer liso, con el mismo tono del cielo y la tierra. */
+.hc-escena {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(180deg, #0d2b33 0%, #3d4d45 48%, #6b5a40 62%, #3a2a1c 100%);
+}
+.hc-lienzo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1.2s ease-out;
+}
+.hc-escena--lista .hc-lienzo {
+  opacity: 1;
+}
+/* Sombra suave arriba para que la barra se lea sobre cualquier cielo. */
+.hc-escena::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 30%;
+  pointer-events: none;
+  background: linear-gradient(180deg, color-mix(in srgb, #00261f 72%, transparent), transparent);
+}
+
+/* Velo de lectura detrás del texto de llegada. */
+.hc-velo {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, #002b24 94%, transparent) 0%,
+    color-mix(in srgb, #002b24 78%, transparent) 34%,
+    transparent 64%
+  );
+}
+
+.hc-contenido {
+  z-index: 2;
+  flex: 1;
+  width: 100%;
+  padding-bottom: 3rem;
+}
+
+.hc-franja {
+  position: relative;
+  z-index: 2;
+  background: color-mix(in srgb, #002b24 72%, transparent);
+}
+
+/* En pantallas verticales la escena queda al pie y el velo baja desde
+   arriba. Sin animación, el texto deja espacio para verla completa. */
+@media (max-aspect-ratio: 1/1) {
+  .hc-velo {
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, #002b24 96%, transparent) 0%,
+      color-mix(in srgb, #002b24 88%, transparent) 48%,
+      transparent 72%
+    );
+  }
+}
+
+/* ---------------------------------------------------------------
+   Capa del relato (solo con la escena fijada)
+   --------------------------------------------------------------- */
+.hc-capa {
+  display: none;
+}
+
+.hc--animada {
+  height: 100svh;
+}
+.hc--animada .hc-capa {
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.hc-capa-interior {
+  position: relative;
+  height: 100%;
+  max-width: 78rem;
+  margin-inline: auto;
+  padding: 7rem 1.25rem 1.5rem;
+}
+@media (min-width: 640px) {
+  .hc-capa-interior {
+    padding-inline: 2rem;
+  }
+}
+@media (min-width: 1024px) {
+  .hc-capa-interior {
+    padding-top: 9.5rem;
+  }
+}
+
+.hc-relato {
+  position: relative;
+  max-width: 36rem;
+}
+
+.hc-avance {
+  display: flex;
+  gap: 5px;
+  max-width: 20rem;
+}
+.hc-avance-tramo {
+  position: relative;
+  flex: 1;
+  height: 3px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--color-mineral) 18%, transparent);
+}
+.hc-avance-lleno {
+  position: absolute;
+  inset: 0;
+  background: var(--color-maiz);
+  transform-origin: left;
+}
+
+.hc-etapas {
+  display: grid;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.hc-etapa {
+  grid-area: 1 / 1;
+  max-width: 20ch;
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.6vw, 2.1rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.hc-mensaje {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: min(52rem, calc(100vw - 2.5rem));
+}
+.hc-mensaje-titulo {
+  font-size: clamp(2.2rem, 4.4vw, 4rem);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+.hc-mensaje-linea {
+  display: block;
+}
+.hc-mensaje-texto {
+  margin-top: 1.25rem;
+  max-width: 40ch;
+  font-size: 1.125rem;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--color-mineral) 88%, transparent);
+}
+.hc-mensaje-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  margin-top: 1.75rem;
+  padding: 1rem 1.75rem;
+  border-radius: 999px;
+  background: var(--color-maiz);
+  font-weight: 600;
+  color: var(--color-tinta);
+  pointer-events: auto;
+  transition: background-color 0.2s;
+}
+.hc-mensaje-cta:hover {
+  background: #ffc04a;
+}
+
+/* ----- Panel del sensor ----- */
+.hc-panel {
+  position: absolute;
+  top: 9.5rem;
+  right: 2rem;
+  display: grid;
+  gap: 0.8rem;
+  width: 17rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid color-mix(in srgb, var(--color-mineral) 16%, transparent);
+  border-radius: 6px;
+  background: #002a23;
+}
+.hc-lectura {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  row-gap: 0.55rem;
+}
+.hc-panel-etiqueta {
+  font-size: 0.875rem;
+  white-space: nowrap;
+  color: color-mix(in srgb, var(--color-mineral) 82%, transparent);
+}
+.hc-valor {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.hc-medidor {
+  grid-column: 1 / -1;
+  position: relative;
+  height: 6px;
+  background: color-mix(in srgb, var(--color-mineral) 14%, transparent);
+}
+.hc-medidor-lleno {
+  position: absolute;
+  inset: 0;
+  background: var(--color-riego);
+  transform: scaleX(0.68);
+  transform-origin: left;
+}
+/* Umbral de riego al 35 %: por debajo, el controlador abre el sistema. */
+.hc-medidor-umbral {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  left: 35%;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--color-maiz);
+}
+
+.hc-chips {
+  display: grid;
+}
+.hc-chip {
+  grid-area: 1 / 1;
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  visibility: hidden;
+  opacity: 0;
+}
+.hc-chip::before {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+.hc-chip-baja {
+  color: var(--color-maiz);
+  background: color-mix(in srgb, var(--color-maiz) 14%, transparent);
+}
+.hc-chip-riego {
+  color: var(--color-riego);
+  background: color-mix(in srgb, var(--color-riego) 14%, transparent);
+}
+.hc-chip-optima {
+  color: var(--color-agua);
+  background: color-mix(in srgb, var(--color-agua) 14%, transparent);
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Vertical: relato arriba, el panel debajo de la leyenda y el mensaje
+   final en el mismo lugar cuando el panel se retira. */
+@media (max-aspect-ratio: 1/1) {
+  .hc-panel {
+    top: calc(7rem + 5.5rem);
+    left: 1.25rem;
+    right: 1.25rem;
+    width: auto;
+    max-width: 22rem;
+  }
+  .hc-etapa {
+    font-size: clamp(1.3rem, 5.2vw, 1.8rem);
+  }
+  .hc-mensaje-titulo {
+    font-size: clamp(2rem, 9vw, 3.25rem);
+  }
+  .hc-mensaje-texto {
+    font-size: 1rem;
+  }
+}
+@media (max-aspect-ratio: 1/1) and (min-width: 640px) {
+  .hc-panel {
+    left: 2rem;
+  }
+}
+
+/* Celulares bajos: el texto de llegada se compacta para caber fijado. */
+@media (max-width: 767.98px) and (max-height: 760px) {
+  .hc--animada .hc-nota {
+    display: none;
+  }
+}
+@media (max-width: 767.98px) and (max-height: 680px) {
+  .hc--animada .hc-descripcion {
+    display: none;
+  }
+}

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { galeria } from "../data/site";
+import { pausarScroll, reanudarScroll } from "../movimiento/scroll";
 
 /* Cada formato ocupa un lugar distinto en la retícula, para que la
    galería se lea como un conjunto de parcelas y no como una cuadrícula
@@ -37,11 +38,13 @@ export function Galeria() {
 
     document.addEventListener("keydown", alTeclear);
     document.body.style.overflow = "hidden";
+    pausarScroll();
     dialogo.current?.focus();
 
     return () => {
       document.removeEventListener("keydown", alTeclear);
       document.body.style.overflow = "";
+      reanudarScroll();
     };
   }, [indice, cerrar, mover]);
 
@@ -78,7 +81,7 @@ export function Galeria() {
                 src={item.src}
                 alt={item.alt}
                 loading="lazy"
-                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                className="foto-marco absolute inset-x-0 -top-[8%] h-[116%] w-full object-cover transition-[scale] duration-500 group-hover:scale-[1.04]"
               />
               <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-tinta/90 to-transparent p-4 pt-10">
                 <span className="block font-display text-base font-semibold text-mineral">

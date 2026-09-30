@@ -54,12 +54,54 @@ export function enlaceWhatsApp(mensaje: string = mensajeWhatsApp) {
 
 export const secciones = [
   { id: "inicio", nombre: "Inicio" },
+  { id: "tipos-riego", nombre: "Riego" },
   { id: "nosotros", nombre: "Nosotros" },
   { id: "servicios", nombre: "Servicios" },
   { id: "marcas", nombre: "Marcas" },
   { id: "galeria", nombre: "Galería" },
   { id: "contacto", nombre: "Contacto" },
 ] as const;
+
+/* --- Sistemas de riego ------------------------------------------ */
+
+export type TipoRiego = {
+  id: "goteo" | "microaspersion" | "aspersion-fija" | "aspersion-movil" | "pivote" | "hidroponia";
+  nombre: string;
+  texto: string;
+};
+
+export const tiposRiego: TipoRiego[] = [
+  {
+    id: "goteo",
+    nombre: "Riego por goteo",
+    texto: "Lleva el agua directo a la raíz y reduce el gasto de agua y energía.",
+  },
+  {
+    id: "microaspersion",
+    nombre: "Microaspersión",
+    texto: "Rocía el agua en gotas finas. Es común en frutales y viveros.",
+  },
+  {
+    id: "aspersion-fija",
+    nombre: "Aspersión fija",
+    texto: "Los aspersores quedan instalados de forma permanente en el campo.",
+  },
+  {
+    id: "aspersion-movil",
+    nombre: "Aspersión móvil",
+    texto: "Los aspersores se trasladan de un lote a otro según se necesite.",
+  },
+  {
+    id: "pivote",
+    nombre: "Pivote central",
+    texto: "Un brazo gira sobre un punto central. Pensado para extensiones grandes.",
+  },
+  {
+    id: "hidroponia",
+    nombre: "Hidroponía",
+    texto: "Cultivo sin suelo, con el agua y los nutrientes controlados.",
+  },
+];
 
 /* --- Servicios ------------------------------------------------- */
 
@@ -68,7 +110,7 @@ export type Servicio = {
   titulo: string;
   resumen: string;
   detalles: string[];
-  icono: "riego" | "nutricion" | "semilla" | "proteccion" | "equipo" | "asesoria";
+  icono: "riego" | "protegida" | "nutricion" | "semilla" | "proteccion" | "equipo" | "asesoria";
 };
 
 export const servicios: Servicio[] = [
@@ -84,6 +126,19 @@ export const servicios: Servicio[] = [
       "Programadores y automatización",
     ],
     icono: "riego",
+  },
+  {
+    id: "protegida",
+    titulo: "Agricultura protegida",
+    resumen:
+      "Invernaderos, macrotúneles y casas malla para controlar luz, temperatura y humedad. Cultivo más parejo, menos plaga y cosecha fuera de temporada.",
+    detalles: [
+      "Cubiertas plásticas para invernadero",
+      "Malla sombra y malla antiinsectos",
+      "Estructuras, perfiles y sujeción",
+      "Acolchado plástico para camas",
+    ],
+    icono: "protegida",
   },
   {
     id: "nutricion",
@@ -244,6 +299,7 @@ export const galeria: Foto[] = [
 
 export const motivos = [
   "Cotización de sistema de riego",
+  "Cotización de agricultura protegida",
   "Compra de insumos",
   "Visita técnica a mi finca",
   "Análisis de suelo",

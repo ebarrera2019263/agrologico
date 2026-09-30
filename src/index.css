@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "lenis/dist/lenis.css";
 
 /* ---------------------------------------------------------------
    Agrológico — sistema de diseño "Agua y suelo"
@@ -16,6 +17,7 @@
   --color-agua: #6cbe45;         /* MARCA — verde de la hoja */
   --color-agua-profunda: #006b55; /* enlaces sobre fondo claro */
   --color-maiz: #fbad18;         /* MARCA — ámbar de la hoja */
+  --color-riego: #4fb8dc;        /* agua en los esquemas técnicos */
   --color-tierra: #b0431b;       /* solo errores de formulario */
   --color-mineral: #f1f5f3;      /* fondo claro */
   --color-mineral-claro: #f8fbf9;
@@ -113,6 +115,148 @@
 
 .gota {
   animation: goteo 3.2s ease-in-out infinite;
+}
+
+/* ---------------------------------------------------------------
+   Recorrido de riego: la coreografía vive en src/movimiento (GSAP +
+   ScrollTrigger + Lenis). Aquí solo queda lo que el CSS debe saber:
+   la tubería de avance arranca vacía y el texto dividido por líneas
+   no debe cortar descendentes al enmascararse.
+   --------------------------------------------------------------- */
+/* Con Lenis activo, el scroll suave nativo pelearía con él cuadro a
+   cuadro y los saltos de ancla se pasarían de largo. */
+html.lenis {
+  scroll-behavior: auto;
+}
+
+.progreso-riego {
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* ---------------------------------------------------------------
+   Sistema de riego (corte de hilera).
+   Sin JavaScript: título, los cuatro pasos en lista y el esquema en
+   su estado final. Con la coreografía activa (.riego-activo) la
+   sección se fija a la pantalla y los pasos se apilan en un solo
+   lugar para leerse uno a la vez.
+   --------------------------------------------------------------- */
+.riego-escena {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "cabecera" "diagrama" "avance" "pasos";
+}
+.riego-cabecera { grid-area: cabecera; }
+.riego-avance { grid-area: avance; display: none; gap: 6px; }
+.riego-pasos { grid-area: pasos; display: grid; gap: 2.5rem; }
+.riego-diagrama { grid-area: diagrama; }
+
+@media (min-width: 1024px) {
+  .riego-escena {
+    column-gap: 3.5rem;
+    row-gap: 2rem;
+    grid-template-columns: minmax(0, 0.62fr) minmax(0, 1.7fr);
+    grid-template-areas: "cabecera diagrama" "avance diagrama" "pasos diagrama";
+    align-items: center;
+  }
+  .riego-cabecera { align-self: end; }
+  .riego-pasos { align-self: start; }
+}
+
+.riego-tramo {
+  position: relative;
+  flex: 1;
+  height: 3px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--color-mineral) 16%, transparent);
+}
+.riego-tramo-lleno {
+  position: absolute;
+  inset: 0;
+  background: var(--color-maiz);
+  transform-origin: left;
+}
+
+.riego-ventana {
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--color-mineral) 14%, transparent);
+  background: #07302a;
+}
+.riego-lienzo {
+  position: relative;
+  aspect-ratio: 1200 / 720;
+  width: 170%;
+}
+@media (min-width: 640px) {
+  .riego-lienzo { width: 130%; }
+}
+@media (min-width: 1024px) {
+  .riego-lienzo { width: 100%; }
+}
+
+.riego-etiqueta {
+  position: absolute;
+  /* translate (no transform) para que GSAP pueda mover la etiqueta sin
+     perder su anclaje al punto del dibujo. */
+  translate: 0 -50%;
+  padding: 0.35rem 0.6rem 0.4rem;
+  background: color-mix(in srgb, var(--color-tinta) 92%, transparent);
+  font-size: 0.72rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: color-mix(in srgb, var(--color-mineral) 78%, transparent);
+}
+.riego-etiqueta b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-maiz);
+}
+.riego-etiqueta.is-centro { translate: -50% -100%; text-align: center; }
+.riego-etiqueta.is-cota { translate: -50% -50%; text-align: center; }
+.riego-etiqueta.is-derecha { translate: -100% -50%; text-align: right; }
+.riego-etiqueta-bulbo b { color: var(--color-riego); }
+
+/* Sin coreografía, el esquema acompaña la lectura de los pasos. */
+@media (min-width: 1024px) {
+  .riego:not(.riego-activo) .riego-diagrama {
+    position: sticky;
+    top: 8rem;
+    align-self: start;
+  }
+}
+
+.riego-activo .riego-escena {
+  min-height: 100svh;
+  align-content: center;
+  padding-top: 7.25rem;
+  padding-bottom: 1.5rem;
+  row-gap: 1.25rem;
+}
+.riego-activo .riego-avance { display: flex; }
+.riego-activo .riego-paso { grid-area: 1 / 1; }
+@media (max-width: 1023px) {
+  .riego-activo .riego-intro { display: none; }
+}
+@media (min-width: 1024px) {
+  .riego-activo .riego-escena { row-gap: 2rem; padding-top: 8rem; }
+}
+
+/* La regla de cada cifra se traza desde la izquierda; --trazo lo
+   anima GSAP y vale 1 (regla completa) sin JavaScript. */
+.cifra {
+  --trazo: 1;
+}
+.cifra::before {
+  transform: scaleX(var(--trazo));
+  transform-origin: left;
+}
+
+.linea-mascara {
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
 }
 
 @media (prefers-reduced-motion: reduce) {

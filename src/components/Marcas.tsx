@@ -25,10 +25,11 @@ export function Marcas() {
       <div className="surco mt-8 mb-10" />
 
       <ul className="grid grid-cols-2 gap-px overflow-hidden border border-linea bg-linea sm:grid-cols-3">
-        {marcas.map(({ nombre, logo, alto }) => (
+        {marcas.map(({ nombre, logo, alto }, i) => (
           <li
             key={nombre}
-            className="flex h-32 items-center justify-center bg-white px-6 sm:h-44 sm:px-10"
+            style={{ "--col": i % 3 } as React.CSSProperties}
+            className="marca flex h-32 items-center justify-center bg-white px-6 sm:h-44 sm:px-10"
           >
             <img
               src={`${import.meta.env.BASE_URL}marcas/${logo}`}

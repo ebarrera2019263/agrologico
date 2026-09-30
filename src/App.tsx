@@ -1,14 +1,18 @@
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
 import { Nosotros } from "./components/Nosotros";
+import { TiposRiego } from "./components/TiposRiego";
 import { Servicios } from "./components/Servicios";
 import { Marcas } from "./components/Marcas";
 import { Galeria } from "./components/Galeria";
 import { Contacto } from "./components/Contacto";
 import { Footer } from "./components/Footer";
 import { BotonWhatsApp } from "./components/BotonWhatsApp";
+import { useRecorrido } from "./movimiento/useRecorrido";
 
 export default function App() {
+  useRecorrido();
+
   return (
     <>
       <a
@@ -22,6 +26,7 @@ export default function App() {
 
       <main id="contenido">
         <Hero />
+        <TiposRiego />
         <Nosotros />
         <Servicios />
         <Marcas />

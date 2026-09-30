@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Logo } from "./Logo";
 import { IconoWhatsApp } from "./Iconos";
 import { secciones, enlaceWhatsApp } from "../data/site";
+import { pausarScroll, reanudarScroll } from "../movimiento/scroll";
 
 export function Header() {
   const [abierto, setAbierto] = useState(false);
@@ -37,8 +38,11 @@ export function Header() {
   /* Con el menú móvil abierto, el fondo no debe desplazarse. */
   useEffect(() => {
     document.body.style.overflow = abierto ? "hidden" : "";
+    if (abierto) pausarScroll();
+    else reanudarScroll();
     return () => {
       document.body.style.overflow = "";
+      reanudarScroll();
     };
   }, [abierto]);
 
@@ -116,6 +120,12 @@ export function Header() {
         </button>
       </div>
 
+      {/* Tubería de avance: se llena conforme se recorre la página */}
+      <span
+        className="progreso-riego pointer-events-none absolute inset-x-0 bottom-0 h-0.5 bg-agua"
+        aria-hidden="true"
+      />
+
       {/* Panel móvil */}
       <div
         id="menu-movil"
@@ -128,7 +138,10 @@ export function Header() {
               <li key={id}>
                 <a
                   href={`#${id}`}
-                  onClick={() => setAbierto(false)}
+                  onClick={() => {
+                    reanudarScroll();
+                    setAbierto(false);
+                  }}
                   className="flex items-baseline justify-between py-4 font-display text-2xl font-semibold text-mineral"
                 >
                   {nombre}
