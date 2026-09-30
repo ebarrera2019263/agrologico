@@ -297,7 +297,7 @@ export function crearCampo(contenedor: HTMLElement, estado: EstadoCampo, opcione
   );
   const pasto = texturasSuelo(
     tamTex,
-    [new THREE.Color("#3f4f24"), new THREE.Color("#66733a"), new THREE.Color("#8d8a4c")],
+    [new THREE.Color("#46622a"), new THREE.Color("#6c873b"), new THREE.Color("#909452")],
     8,
     12,
   );
@@ -837,8 +837,8 @@ export function crearCampo(contenedor: HTMLElement, estado: EstadoCampo, opcione
        leen como arboledas reales. */
     const geoArbol = (() => {
       const partes: THREE.BufferGeometry[] = [];
-      const oscuro = new THREE.Color("#1f2c15");
-      const claro = new THREE.Color("#4c5c2c");
+      const oscuro = new THREE.Color("#2a4520");
+      const claro = new THREE.Color("#66913d");
       const c = new THREE.Color();
       for (let k = 0; k < 7; k++) {
         const r = 0.55 + hash(k, 3.1) * 0.45;
@@ -902,23 +902,36 @@ export function crearCampo(contenedor: HTMLElement, estado: EstadoCampo, opcione
     /* Volcanes lejanos en perspectiva aérea: silueta azulada arriba
        que se funde con la bruma del horizonte en la base. No usan la
        neblina de la escena (a esa distancia quedarían del color de la
-       niebla y no del cielo). */
-    const volcan = (x: number, z: number, alto: number, radio: number) => {
-      const perfil = [
-        new THREE.Vector2(0.001, alto),
-        new THREE.Vector2(radio * 0.05, alto * 0.985),
-        new THREE.Vector2(radio * 0.2, alto * 0.78),
-        new THREE.Vector2(radio * 0.5, alto * 0.36),
-        new THREE.Vector2(radio, 0),
-      ];
-      const geo = new THREE.LatheGeometry(perfil, 64);
-      const cima = new THREE.Color("#6f7f86");
-      const base = new THREE.Color("#c9bea6");
+       niebla y no del cielo). Las laderas llevan barrancos y la cara
+       que mira al sol queda más clara, para que se lean con volumen. */
+    const solXZ = new THREE.Vector2(SOL.x, SOL.z).normalize();
+    const volcan = (x: number, z: number, alto: number, radio: number, semilla: number) => {
+      const perfil = Array.from({ length: 14 }, (_, i) => {
+        const t = i / 13;
+        /* Cono cóncavo con el cráter apenas truncado. */
+        const r = radio * (0.04 + 0.96 * Math.pow(t, 1.6));
+        return new THREE.Vector2(r, alto * (1 - Math.pow(t, 0.75)));
+      });
+      const geo = new THREE.LatheGeometry(perfil, 160);
+      const cima = new THREE.Color("#4d6270");
+      const base = new THREE.Color("#c4bca6");
+      const luz = new THREE.Color("#9fa99f");
       const c = new THREE.Color();
       const pos = geo.attributes.position;
       const col: number[] = [];
+      const v = new THREE.Vector3();
       for (let i = 0; i < pos.count; i++) {
-        c.copy(base).lerp(cima, Math.pow(pos.getY(i) / alto, 0.6));
+        v.fromBufferAttribute(pos, i);
+        const altura = v.y / alto;
+        const ang = Math.atan2(v.z, v.x);
+        /* Barrancos: surcos radiales más marcados a media ladera. */
+        const barranco = (ruido(ang * 9 + semilla, altura * 3, 999) - 0.5) * 0.14 * Math.sin(Math.PI * Math.min(1, altura * 1.4));
+        const r = Math.hypot(v.x, v.z) * (1 + barranco);
+        pos.setXYZ(i, Math.cos(ang) * r, v.y, Math.sin(ang) * r);
+        const alSol = Math.max(0, (Math.cos(ang) * solXZ.x + Math.sin(ang) * solXZ.y));
+        c.copy(base).lerp(cima, Math.pow(altura, 0.55));
+        c.lerp(luz, alSol * 0.35 * Math.min(1, altura * 2));
+        c.multiplyScalar(1 - Math.max(0, -barranco) * 1.6);
         col.push(c.r, c.g, c.b);
       }
       geo.setAttribute("color", new THREE.Float32BufferAttribute(col, 3));
@@ -926,9 +939,9 @@ export function crearCampo(contenedor: HTMLElement, estado: EstadoCampo, opcione
       malla.position.set(x, -5, z);
       escena.add(malla);
     };
-    volcan(-1400, -3000, 330, 1300);
-    volcan(900, -3400, 420, 1500);
-    volcan(2100, -3600, 300, 1200);
+    volcan(-1400, -3000, 330, 1300, 1);
+    volcan(900, -3400, 420, 1500, 7);
+    volcan(2100, -3600, 300, 1200, 13);
   }
 
   /* ----- Cámara tipo dron ----- */
