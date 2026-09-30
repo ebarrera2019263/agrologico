@@ -56,6 +56,7 @@ export const secciones = [
   { id: "inicio", nombre: "Inicio" },
   { id: "nosotros", nombre: "Nosotros" },
   { id: "servicios", nombre: "Servicios" },
+  { id: "marcas", nombre: "Marcas" },
   { id: "galeria", nombre: "Galería" },
   { id: "contacto", nombre: "Contacto" },
 ] as const;
@@ -149,6 +150,27 @@ export const servicios: Servicio[] = [
     ],
     icono: "asesoria",
   },
+];
+
+/* --- Marcas ---------------------------------------------------
+   Logos en /public/marcas/. `alto` ajusta el tamaño visual de cada
+   logo para que todos pesen parecido (los apilados necesitan más
+   altura que los horizontales).
+   ---------------------------------------------------------------- */
+
+export type Marca = {
+  nombre: string;
+  logo: string;
+  alto: "bajo" | "medio" | "alto";
+};
+
+export const marcas: Marca[] = [
+  { nombre: "Nelson", logo: "nelson.webp", alto: "bajo" },
+  { nombre: "Metzer", logo: "metzer.svg", alto: "alto" },
+  { nombre: "Ridder", logo: "ridder.svg", alto: "bajo" },
+  { nombre: "Antelco", logo: "antelco.webp", alto: "medio" },
+  { nombre: "Mago", logo: "mago.svg", alto: "medio" },
+  { nombre: "Asthor", logo: "asthor.webp", alto: "bajo" },
 ];
 
 /* --- Cifras (Nosotros) ----------------------------------------- */
