@@ -228,6 +228,51 @@ export const marcas: Marca[] = [
   { nombre: "Asthor", logo: "asthor.webp", alto: "bajo" },
 ];
 
+/* --- Productos por marca ----------------------------------------
+   Una foto de línea por marca, bajo /public/productos/, y la lista
+   de lo que se ve en ella. El logo sale de `marcas`, por nombre.
+   ---------------------------------------------------------------- */
+
+export type LineaMarca = {
+  marca: string;
+  foto: string;
+  resumen: string;
+  productos: string[];
+};
+
+export const productosPorMarca: LineaMarca[] = [
+  {
+    marca: "Nelson",
+    foto: "nelson.webp",
+    resumen: "Aspersión de mediano y gran caudal, para campo abierto y pivotes.",
+    productos: ["Aspersores de impacto", "Cañones de riego", "Rotadores para pivote", "Válvulas de control"],
+  },
+  {
+    marca: "Metzer",
+    foto: "metzer.webp",
+    resumen: "Líneas completas de goteo, desde la manguera hasta el filtrado.",
+    productos: ["Manguera de goteo", "Cinta de goteo", "Filtros de malla", "Microaspersores", "Válvulas de paso"],
+  },
+  {
+    marca: "Antelco",
+    foto: "antelco.webp",
+    resumen: "Emisores y accesorios pequeños para viveros, jardines y frutales.",
+    productos: ["Microaspersores con estaca", "Goteros", "Microjets", "Válvulas de paso", "Conectores"],
+  },
+  {
+    marca: "Mago",
+    foto: "mago.webp",
+    resumen: "Cinta de goteo para hortalizas y sus conectores de compresión.",
+    productos: ["Cinta de goteo", "Conectores", "Tees y uniones", "Válvulas de inicio"],
+  },
+  {
+    marca: "Asthor",
+    foto: "asthor.webp",
+    resumen: "Equipo de cabezal y emisores para armar el sistema completo.",
+    productos: ["Microaspersores", "Manguera de goteo", "Dosificadores de fertilizante", "Filtros", "Electroválvulas"],
+  },
+];
+
 /* --- Cifras (Nosotros) ----------------------------------------- */
 
 export const cifras = [

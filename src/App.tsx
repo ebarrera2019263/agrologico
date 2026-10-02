@@ -4,6 +4,7 @@ import { Nosotros } from "./components/Nosotros";
 import { TiposRiego } from "./components/TiposRiego";
 import { Servicios } from "./components/Servicios";
 import { Marcas } from "./components/Marcas";
+import { ProductosMarca } from "./components/ProductosMarca";
 import { Galeria } from "./components/Galeria";
 import { Contacto } from "./components/Contacto";
 import { Footer } from "./components/Footer";
@@ -30,6 +31,7 @@ export default function App() {
         <Nosotros />
         <Servicios />
         <Marcas />
+        <ProductosMarca />
         <Galeria />
         <Contacto />
       </main>

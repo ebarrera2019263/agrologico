@@ -95,6 +95,14 @@
 
 /* Movimiento: una sola secuencia orquestada en el hero.
    Se apaga por completo si el sistema pide menos movimiento. */
+/* Cambio de pestaña en «Productos de cada marca». */
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
 @keyframes goteo {
   0% {
     opacity: 0;
